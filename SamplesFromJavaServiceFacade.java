@@ -3,10 +3,7 @@
 public class MobileServiceFacade implements IMobileServiceFacade {
 
 	@Autowired
-	private IDataSeriesSearchService dataSeriesSearchService;
-	
-	@Autowired
-	private ISecurityService sec;
+	private IConstraintService constraintService;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/constraints/{iso}")
 	public MobileConstraint[] getConstraints(@PathVariable("iso") String iso) {
