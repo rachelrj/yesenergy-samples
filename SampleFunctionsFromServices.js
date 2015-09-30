@@ -49,6 +49,48 @@ function getLatestConstraints() {
     }
 }
 
+function doSearch(query) {
+
+
+	if(lastSearch !== undefined && lastSearch !== null){
+		if(typeof(lastSearch.then) === "function") {
+			lastSearch.cancel();
+		}
+	}
+
+	//cannot search without a query
+	if(ObjectUtil.isNull(query)){
+		return;
+	}
+
+	var isoFilterIsDefined = (ObjectUtil.isNotNull(query.selectedISO) && query.selectedISO.toUpperCase() !== 'ALL');
+	var datatypeFilterDefined = (ObjectUtil.isNotNull(query.selectedSeries));
+	var queryDefined = (ObjectUtil.isNotNull(query.search) && query.search.trim() !== "");
+
+	//cannot search with just iso
+	if(!queryDefined && !datatypeFilterDefined){
+		return;
+	}
+
+	var isoParam = isoFilterIsDefined ? "iso="+query.selectedISO+"&" : "";
+	var seriesParam = datatypeFilterDefined ? "series="+query.selectedSeries+"&" : "";
+	var searchParam = queryDefined ? "search="+query.search+"&" : "";
+
+	var str = searchParam + isoParam + seriesParam;
+
+	if(str.length > 0){
+		str = str.substring(0, str.length-1);
+	}
+
+	return lastSearch = superagent('get', url('searchnew/items'+constants.serverPostfix+'?'+str))
+  		.then(validResponse, handleServerError)
+		.catch(catchError);
+}
+
+function completeSearch(){
+	lastSearch = null;
+}
+
     // The public API
     return {
         initMobileApp: initMobileApp,
