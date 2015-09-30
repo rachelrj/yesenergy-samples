@@ -4,16 +4,40 @@ img & icon constants;
 
 class Search extends React.Component {
 
-	constructor(props) {
-	   declarations;
-	}
+    constructor(props) {
+        super(props);
+        var searchResults = null;
+        var cancelButton;
+        this.state = {
+          searching: false,
+          hasSearched: false,
+          showModal: false,
+          isoValue: 'ALL',
+          seriesValue: 'ALL',
+          selectingSeries: false,
+          selectingISO: false,
+          loadingISOs: true,
+          loadingSeries: true
+        };
+        var seriesID = null;
+        var yesImage;
+        var availableISOs = null;
+        var availableSeries;
+        var seriesUnavailableForSelectedISO = false;
+        var search = null;
+    }
 
 	propTypes: {
-    	handleAdd: React.PropTypes.func,
+        handleAdd: React.PropTypes.func,
 	   handleCancel: React.PropTypes.func
 	}
 
 	state getters & setters() {
+
+        example:
+        openModal() {
+            this.setState({ showModal: true});
+        }
 	}
 
 	componentWillMount() {
@@ -165,7 +189,7 @@ class Search extends React.Component {
         //Create the series searching artifacts
         var searchHandler = FunctionUtil.debounce(this.handleSearch.bind(this), 750);
         var searchText = 'Search';
-        var searchField = <input type="search" ref='searchField' style={{width:'100%', height:35, fontSize:20, color:'black' }} onChange={searchHandler}></input>;
+        var searchField = <input type="search" ref='searchField' style={styles.inputStyles} onChange={searchHandler}></input>;
         var searchBar =
             <div style={{height: '100%'}}>
                 <div style={{textAlign:'left', float:'left', display:'inline-block', width:'50px', marginRight:'10px'}}>
@@ -175,11 +199,11 @@ class Search extends React.Component {
                     {searchField}
                 </div>
             </div>;
-        
+
         var isoText = 'ISO';
         var isoChangeText = 'Change';
-        var isoSelector = <input type="text" value={this.state.isoValue} style={{width:'100%', height:35, fontSize:20, color:'black', backgroundColor:'#d3d3d3', border:'1px solid #a9a9a9', padding: '3px'}} disabled></input>;
-        var isoChange = <a style={{textDecoration:"underline"}} onClick={this.setSelectingISO.bind(this)}>{isoChangeText}</a>
+        var isoSelector = <input type="text" value={this.state.isoValue} styles={styles.disabledInputStyles} disabled></input>;
+        var isoChange = <a style={{textDecoration:"underline"}} onClick={this.setSelectingISO.bind(this)}>{isoChangeText}</a>;
 
         var isoFieldBar =
             <div style={{height: '100%'}}>
@@ -196,7 +220,7 @@ class Search extends React.Component {
 
         var seriesText = 'Series';
         var seriesChangeText = 'Change';
-        var seriesSelector = <input type="text" value={this.state.seriesValue} style={{width:'100%', height:35, fontSize:20, color:'black', backgroundColor:'#d3d3d3', border:'1px solid #a9a9a9', padding: '3px'}} disabled></input>;
+        var seriesSelector = <input type="text" value={this.state.seriesValue} styles={styles.disabledInputStyles} disabled></input>;
         var seriesChange = <a style={{textDecoration:"underline"}} onClick={this.setSelectingSeries.bind(this)}>{seriesChangeText}</a>
 
         var seriesFieldBar =
@@ -306,3 +330,27 @@ class Search extends React.Component {
 }
 
 export default Search;
+
+const styles = {
+    helpfulText: {
+        padding:'10px', 
+        color:"#307cff", 
+        textAlign:'center', 
+        fontSize:'16px'
+    },
+    inputStyles: {
+        width:'100%', 
+        height:'35px', 
+        fontSize:'20px',
+        color:'black'
+    },
+    disabledInputStyles: {
+        width:'100%', 
+        height:'35px', 
+        fontSize:'20px', 
+        color:'black', 
+        backgroundColor:'#d3d3d3', 
+        border:'1px solid #a9a9a9', 
+        padding: '3px'
+    }
+}
