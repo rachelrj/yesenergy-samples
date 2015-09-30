@@ -45,7 +45,10 @@ class Search extends React.Component {
         	.then((result) => {
             	this.availableISOs = result;
         	});
-    	this.availableSeries = this.action.getAvailableSeriesForSearchAction();
+        this.action.getAvailableSeriesForSearchAction()
+            .then((result) => {
+                this.availableSeries = result;
+            });
     	this.backButton = <BackButton iconProps={{ size: 24, stroke: 1}}
         		onTap={this.goBack.bind(this)}
         		chromeless/>;
