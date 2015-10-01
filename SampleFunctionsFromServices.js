@@ -1,3 +1,7 @@
+Sample code from a React jsx component.
+Taken with permission from Yes Energy.
+
+
 import statements;
 var services = (function () {
 
