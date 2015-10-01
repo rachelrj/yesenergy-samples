@@ -1,3 +1,5 @@
+Sample code from a React jsx component.
+Taken with permission from Yes Energy.
 
 @Controller
 public class MobileServiceFacade implements IMobileServiceFacade {
