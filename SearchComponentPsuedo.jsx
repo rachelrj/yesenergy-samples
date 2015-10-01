@@ -1,3 +1,6 @@
+Sample code from a React jsx component.
+Taken with permission from Yes Energy.
+
 import statements;
 
 img & icon constants;
